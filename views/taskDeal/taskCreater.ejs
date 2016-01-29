@@ -1,0 +1,119 @@
+<!--我的待处理变更单-->
+<div id="taskDiv" class="container-fluid">
+    <div class="panel panel-info">
+        <div class="panel-heading">我发起的任务</div>
+        <div class="panel-body table-responsive">
+            <input id="totalTask" type="hidden" value="<%= tasks %>"/>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>变更单号</th>
+                    <th>变更单名称</th>
+                    <th>申请人</th>
+                    <th>状态</th>
+                    <th>环节</th>
+                    <th>处理人</th>
+                    <th>历史</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% var recCount = (curCreatePage - 1) * 30 %>
+                <% tasks.forEach(function(task, i){ var psId = task.processStepId %>
+                <% if(task.taskType == 1){ recCount++; %>
+                <tr id="myCreateTask">
+                    <td><%= recCount %></td>
+                    <td><a id="task_<%= task.taskid %>" deleteName="deleteTask" createName="<%= task.createrName %>"
+                           dealerName="<%= task.dealerName %>" step="taskProcessStepId_<%= task.processStepId %>"
+                           taskid="<%= task.taskid %>" taskcreater="<%= task.creater %>"><%= task.taskcode %></a></td>
+                    <td><a id="task_<%= task.taskid %>" createName="<%= task.createrName %>"
+                           dealerName="<%= task.dealerName %>" step="2taskProcessStepId_<%= task.processStepId %>"
+                           taskid="<%= task.taskid %>" taskcreater="<%= task.creater %>"><%= task.taskname %></a></td>
+                    <td><%= task.createrName %></td>
+                    <td><%= task.state %></td>
+                    <td><%= task.stepName %></td>
+                    <td><%= task.dealerName == null ? '' : task.dealerName %></td>
+                    <td>&nbsp;&nbsp;<a class="glyphicon glyphicon-time" btnType="taskHistory"
+                                       taskId="<%= task.taskid %>"></a></td>
+                    <div id="deltask_<%= task.taskid %>" class="modal fade bs-example-modal-sm" tabindex="-1"
+                         role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-sm">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                                aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="myModalLabel" style="color:#0000cc;">变更单删除</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <span style="font-size:14px;color:#ff0000">确定删除变更单：</span>&nbsp;<br/>
+                                    【变更单号】&nbsp; &nbsp;&nbsp;&nbsp;<%= task.taskcode %><br/>
+                                    【变更单名称】&nbsp; &nbsp;<%= task.taskname %>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                    <button id="btnDelTask" type="button" taskId="<%= task.taskid %>"
+                                            class="btn btn-primary" data-dismiss="modal">确定
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tr>
+                <% } %>
+                <% }); %>
+                </tbody>
+            </table>
+        </div>
+        <!--<% if(taskCount){ %>-->
+        <!--<div class="panel-footer">共<%= taskCount %>条</div>-->
+        <!--<% } %>-->
+        <div id="recCount" class="panel-footer" recCount="<%= recCount %>">
+            共<%= (recCount % 30) == 0 ? 30 : (recCount % 30) %>
+            条
+        </div>
+        <div style="float:right">
+            <nav>
+                <%
+                var minPage = curCreatePage - 2 > 0 ? curCreatePage - 2 : 1;
+                var maxPage = minPage + 4 > totalCreatePage ? totalCreatePage : minPage + 4;
+                minPage = maxPage - 4 < 1 ? 1 : maxPage - 4;
+                //                          var maxPage =curCreatePage+2>totalDealPage?totalDealPage:curCreatePage+2;
+                %>
+                <ul class="pagination" id="pageUl" pageCount="<%= totalCreatePage %>" curPage="<%= curCreatePage %>"
+                    minPage="<%= minPage %>" ,maxPage="<%= maxPage %>">
+
+                    <% if(minPage != 1){ %>
+                    <li id="pagePre">
+                        <a href="/btnTaskCreater/<%= parseInt(curCreatePage) - 1 %>" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <% } %>
+                    <% for(var i = minPage;i <= maxPage;i++){ %>
+                    <li class="pageId" value="<%= i %>"><a href="/btnTaskCreater/<%= i %>"><%= i %></a></li>
+                    <% } %>
+                    <% if(maxPage < totalCreatePage){ %>
+                    <li id="pageNext">
+                        <a href="/btnTaskCreater/<%= parseInt(curCreatePage) + 1 %>" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                    <% } %>
+                </ul>
+            </nav>
+        </div>
+        <!--<div style="float:right" ><nav></nav> 共<%= totalCreatePage %>页</nav> </div>-->
+    </div>
+</div>
+<div id="noTaskNotice" style="margin-top: 100px">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+        <span style="font-size:20pt; color: #cccccc;height:20px; line-height:20px; text-align:center; display:block;">
+            当前无变更单，通过"申请变更单"发起申请
+        </span>
+    </div>
+    <div class="col-sm-3"></div>
+</div>
+<script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
+<script src="/javascripts/deltask.js"></script>
+

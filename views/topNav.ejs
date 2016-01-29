@@ -1,0 +1,151 @@
+<!--index--页面顶部导航栏_备份-->
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">AILK-CRM 版本管理系统</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <% if(user){ %>
+            <% if(user.isBoss){ %>
+            <ul class="nav navbar-nav">
+                <a class="btn  btn-info btn-sm" btnname="btnFindAllTasksForBoss" btnurl="" href="#"
+                   id="btnFindAllTasksForBoss" style="color:white;margin-top:9px; "> 查找变更单 </a>
+            </ul>
+            <% } %>
+
+            <% if(userPros && userPros.length > 0){ %>
+            <ul id="navMenu" class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                       aria-expanded="false">操作<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <% if(user.isDev){ %>
+                        <li><a class="menuBtn" btnname="btnSubmitApply" btnurl="" href="#" id="btnSubmitApply">
+                                申请变更单 </a></li>
+                        <!--<li><a class="menuBtn" btnname="btnFindTasks" btnurl="" href="#" id="btnFindTasks"> 查找变更单 </a></li>-->
+                        <li><a class="menuBtn" btnname="btnSubmitBug" btnurl="" href="#" id="btnSubmitBug">
+                                修复Bug变更单 </a></li>
+                        <li><a class="menuBtn" btnname="btnFindAllTasks" btnurl="" href="#" id="btnFindAllTasks">
+                                查找所有变更单 </a></li>
+                        <% } %>
+                        <% if(user && ((user.isAdmin) || (user.isLeader) || (user.isBoss))){ %>
+                        <!--<li><a class="menuBtn" btnname="btnFindAllTasks" btnurl="" href="#" id="btnFindAllTasks"> 查找所有变更单 </a></li>-->
+                        <% } %>
+                        <% if(user && user.isAdmin){ %>
+                        <li><a class="menuBtn" btnname="btnFileHistory" btnurl="" href="/admin/findFileHistory"
+                               methods="post" id="btnFileHistory"> 查看文件历史记录 </a></li>
+                        <li><a class="menuBtn" btnname="btnAttaHistory" btnurl="" href="/admin/findAttaHistory"
+                               methods="post" id="btnAttaHistory"> 查看附件记录 </a></li>
+                        <li><a class="menuBtn" btnname="btnAllScript" btnurl="" href="#" methods="post"
+                               id="btnAllScript"> 查看配置或脚本 </a></li>
+                        <% } %>
+                        <% if(user && ((user.isPM) || user.isTester)){ %>
+                        <li><a class="menuBtn" btnname="btnFindTestTasks" btnurl="" href="#" id="btnFindTestTasks">
+                                查找测试变更单 </a></li>
+                        <% } %>
+                        <% if(user && (user.isPM || user.isTester)){ %>
+                        <li><a class="menuBtn" btnname="btnFindAllTestTasks" btnurl="" href="#"
+                               id="btnFindAllTestTasks"> 查找所有测试变更单 </a></li>
+                        <% } %>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                       aria-expanded="false">视图<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <% if(user.isDev){ %>
+                        <li><a class="menuBtn" btnname="btnTaskCreater" btnurl="/btnTaskCreater" href="/btnTaskCreater"
+                               id="btnTaskCreater"> 我发起的变更单 </a></li>
+                        <% } %>
+                        <li><a class="menuBtn" btnname="btnToBeDeal" btnurl="/btnToBeDeal" href="/btnToBeDeal"
+                               id="btnToBeDeal"> 待处理的变更单 </a></li>
+                        <!--<li><a class="menuBtn" btnname="btnToBeDeal" btnurl="/btnScriptToDeal" href="/btnScriptToDeal" id="btnScriptToDeal"> 待处理的脚本 </a></li>-->
+                    </ul>
+                </li>
+                <% if(user && (user.isPM || user.isAdmin)){ %>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                       aria-expanded="false">文件导出<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a class="menuBtn" btnname="excelels" btnurl="" id="btnExportTasks"> 导出变更单 </a></li>
+                        <!--<li><a class="menuBtn" btnname="excelels" btnurl=""   id="btnExportCountTasks"> 统计变更单测试情况 </a></li>-->
+                        <li><a class="menuBtn" btnname="btnExportLocalChangeAttaPage" btnurl="" href="#" methods="get"
+                               id="btnExportLocalChangeAttaPage"> 导出变跟单附件 </a></li>
+                    </ul>
+                </li>
+                <% } %>
+
+                <!--&lt;!&ndash;用户特有的菜单按钮&ndash;&gt;-->
+                <!--<% if(menus && menus != null){ var secFlag = false; var thirdFlag = false; %>-->
+                <!--<li class="dropdown">-->
+                <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">视图<span class="caret"></span></a>-->
+                <!--<ul class="dropdown-menu" role="menu">-->
+                <!--<% menus.forEach(function(menu){ %>-->
+                <!--<% var menuId = menu.menuId; var menuName = menu.menuName; var menuBtnName = menu.menuBtnName; var menuUrl = menu.url; %>-->
+                <!--<li><a class="menuBtn" btnName="<%= menuBtnName %>" btnUrl="<%= menuUrl %>" href="<%= menuUrl %>" id="<%= menuBtnName %>"> <%= menuName %> </a></li>-->
+                <!--<% }); %>-->
+                <!--</ul>-->
+                <!--</li>-->
+                <!--<% } %>-->
+            </ul>
+            <% } %>
+            <% } %>
+
+            <ul class="nav navbar-nav navbar-right">
+                <% if(!user){ %>
+                <li class="dropdown"><a href="/users/login">登录</a></li>
+                <li class="dropdown"></li>
+                <li class="dropdown"><a href="/users/reg">注册</a></li>
+                <% } else { %>
+                <!--<li class="dropdown"><a href="#">当前用户：(<%= user.userName %>)</a></li>-->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">当前用户：(<%= user.userName %>
+                        )<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="/users/modifyUser">修改资料</a></li>
+                        <li class="divider"></li>
+                        <li><a href="/users/logout">退出</a></li>
+                    </ul>
+                </li>
+                <% } %>
+            </ul>
+
+            <% if(user && (user.isLeader || user.isAdmin)){ %>
+            <ul class="nav navbar-nav navbar-right">
+                <a style="margin-top:9px;" class="btn btn-danger btn-sm" href="/leaderModel/leader" role="button">立即变身领导模式</a>
+            </ul>
+            <% } %>
+            <% if(user){ %>
+            <ul class="nav navbar-nav navbar-right">
+                <a style="margin-top:8px;font-size:16px" class="btn btn-button btn-sm" href="/requirement"
+                   role="button">需求设计子系统</a>
+            </ul>
+            <% } %>
+            <% if(user && ( user.isBoss)){ %>
+            <ul class="nav navbar-nav navbar-right">
+                <a style="margin-top:9px;" class="btn btn-danger btn-sm" href="/leaderModel/leaderForBoss"
+                   role="button">变更单统计</a>
+            </ul>
+            <% } %>
+            <% if(user && user.userName == 'sAdmin'){ %>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/superModel/super" role="button">超级管理员模式</a></li>
+
+            </ul>
+            <% } %>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+</nav>

@@ -1,0 +1,59 @@
+<!--登录界面-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+<%- message %>
+<div class="span8 text-center">
+    <form action="/users/doLogin" id="formReg" class=" bs-component form-horizontal" method='post'>
+        <div class="modal-header">
+            <h4 class="modal-title" id="myLargeModalLabel">用户登录</h4>
+        </div>
+
+        <div class="modal-body">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <!--<label for="inputTaskName" class="col-sm-4 control-label">用户名</label>-->
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-6 input-group">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                                <input value="" type="text" class="form-control" name="username" id="username"
+                                       placeholder="登录名" autofocus/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <!--<label for="password" class="col-sm-4 control-label">密码</label>-->
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-6 input-group">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                                <input value="" type="password" class="form-control" name="password" id="password"
+                                       placeholder="登录密码"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-actions">
+            <a href="/">
+                <button type="button" class="btn btn-default">返回</button>
+            </a>&emsp;
+            <button type="submit" class="btn btn-primary">登录</button>
+        </div>
+    </form>
+</div>
+
+<script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
+<script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+
+</body>
+</html>

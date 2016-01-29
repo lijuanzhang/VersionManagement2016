@@ -1,0 +1,24 @@
+Wed, 06 May 2015 03:29:40 GMT express-session deprecated undefined resave option; provide resave option at ..\..\..\app.js:43:9
+Wed, 06 May 2015 03:29:40 GMT express-session deprecated undefined saveUninitialized option; provide saveUninitialized option at ..\..\..\app.js:43:9
+
+events.js:72
+        throw er; // Unhandled 'error' event
+              ^
+Error: ENOENT, open 'E:\VersionManagement0308\bin\forever\bin\attachment\newAndOld\upload_d36af16d5b50cec84daef791b52d666a.rar'
+Wed, 06 May 2015 03:29:58 GMT express-session deprecated undefined resave option; provide resave option at ..\..\..\app.js:43:9
+Wed, 06 May 2015 03:29:58 GMT express-session deprecated undefined saveUninitialized option; provide saveUninitialized option at ..\..\..\app.js:43:9
+
+events.js:72
+        throw er; // Unhandled 'error' event
+              ^
+Error: ENOENT, open 'E:\VersionManagement0308\bin\forever\bin\attachment\newAndOld\upload_4d2e07f9c5e4390a17eaa37ecf4e6e40.zip'
+Wed, 06 May 2015 03:41:30 GMT express-session deprecated undefined resave option; provide resave option at ..\..\..\app.js:43:9
+Wed, 06 May 2015 03:41:30 GMT express-session deprecated undefined saveUninitialized option; provide saveUninitialized option at ..\..\..\app.js:43:9
+
+events.js:72
+        throw er; // Unhandled 'error' event
+              ^
+Error: ENOENT, open 'E:\VersionManagement0308\bin\forever\bin\attachment\newAndOld\upload_d3d41820ff16363686dd4679956babf2.zip'
+Wed, 06 May 2015 03:42:14 GMT express-session deprecated undefined resave option; provide resave option at ..\..\..\app.js:43:9
+Wed, 06 May 2015 03:42:14 GMT express-session deprecated undefined saveUninitialized option; provide saveUninitialized option at ..\..\..\app.js:43:9
+Error: ENOENT, stat 'E:\VersionManagement0308\bin\forever\bin\old\crm某某工程1_20150422_020\old.zip'

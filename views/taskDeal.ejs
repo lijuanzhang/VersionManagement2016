@@ -1,0 +1,102 @@
+<!--登录后的任务处理界面-->
+<% if(topBtnCheckTask == 'findAttachments'){ %><!--版本管理员：查看变更附件>-->
+<% if(attas.length == 0 ){ %>
+<div style="margin-top: 100px">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+            <span style="font-size:20pt; color: #cccccc;height:20px; line-height:20px; text-align:center; display:block;">
+                    sorry,没有变更单附件需要上传！
+            </span>
+    </div>
+    <div class="col-sm-3"></div>
+</div>
+<% }else { %>
+<% include adminModel/attaInfo.ejs %>
+<% } %>
+<% }else %>
+<% if(topBtnCheckTask == 'findFileHistory'){ %><!--版本管理员：查看变更文件历史-->
+<% if(files === null){ %>
+<div style="margin-top: 100px">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+            <span style="font-size:20pt; color: #cccccc;height:20px; line-height:20px; text-align:center; display:block;">
+                    sorry,没有找到文件的变更记录！
+            </span>
+    </div>
+    <div class="col-sm-3"></div>
+</div>
+<% }else { %>
+<% include adminModel/filesHistory.ejs %>
+<% } %>
+<% } else %>
+<% if(topBtnCheckTask == "dealScript"){ %>
+<% if(scripts === null){ %>
+<div style="margin-top: 100px">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+            <span style="font-size:20pt; color: #cccccc;height:20px; line-height:20px; text-align:center; display:block;">
+                    sorry,没有找到配置或脚本的记录！
+            </span>
+    </div>
+    <div class="col-sm-3"></div>
+</div>
+<% }else { %>
+<% include script/script.ejs %>
+<% } %>
+<% } else %>
+<% if(topBtnCheckTask == 'findAFileHistory'){ %><!--版本管理员：查看变更文件历史-->
+<% if(files === null){ %>
+<div style="margin-top: 100px">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+            <span style="font-size:20pt; color: #cccccc;height:20px; line-height:20px; text-align:center; display:block;">
+                    sorry,没有找到文件的变更记录！
+            </span>
+    </div>
+    <div class="col-sm-3"></div>
+</div>
+<% }else { %>
+<% include adminModel/aFileHistory.ejs %>
+<% } %>
+<% }  else %>
+<% if(tasks){ %><!--登录后的任务处理界面(有待处理的任务或自己有发起任务且未来走完流程)-->
+<% if(topBtnCheckTask == 'btnTaskCreater'){ %><!--我发起的变更单-->
+<% include taskDeal/taskCreater.ejs %>
+<% } %>
+<% if(topBtnCheckTask == 'btnToBeDeal' || topBtnCheckTask == ''){ %><!--我的待处理变更单-->
+<% include taskDeal/toBeDeal.ejs %>
+<% } %>
+<% if(topBtnCheckTask == 'findTaskResult'){ %><!--模糊查询变更单-->
+<% include taskDeal/findTaskResult.ejs %>
+<% } %>
+<% if(topBtnCheckTask == 'findTaskResult_noLink'){ %><!--模糊查询所有变更单-->
+<% include taskDeal/findTaskResult_noLink.ejs %>
+<% } %>
+<% if(topBtnCheckTask == 'findTaskResultForBoss'){ %><!--所有变更单&ndash;&gt;-->
+<% include tasksForBoss.ejs %>
+<% } %>
+<% if(topBtnCheckTask == 'findAllTaskResultForBoss'){ %><!--领导：分页查询所有变更单-->
+<% include taskDeal/findTaskResultForBoss.ejs %>
+<% } %>
+<% if(topBtnCheckTask == 'findTaskResult_tester'){ %><!--领导：分页查询所有变更单-->
+<% include testModel/findAllTasksForTester.ejs %>
+<% } %>
+<% if(topBtnCheckTask == 'allTaskForBoss'){ %><!--领导：分页查询所有变更单-->
+<% include tasksForBoss.ejs %>
+<% } %>
+
+<% }else if(tasks === null){ %><!--登录后的任务处理界面(处理任务为空)-->
+<div style="margin-top: 100px">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+            <span style="font-size:20pt; color: #cccccc;height:20px; line-height:20px; text-align:center; display:block;">
+                <% if((topBtnCheckTask != 'findTaskResult') && (topBtnCheckTask != 'findTaskResult_noLink')){ %><!--模糊查询变更单-->
+                    当前无变更单，通过"申请变更单"发起申请
+                <% }else{ %>
+                没有找到符合条件的变更单
+                <% } %>
+            </span>
+    </div>
+    <div class="col-sm-3"></div>
+</div>
+<% } %>

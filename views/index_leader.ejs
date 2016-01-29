@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+    <link rel="stylesheet" href="/stylesheets/amazeui.min.css">
+    <link rel="stylesheet" href="/stylesheets/amazeui.flat.min.css">
+    <link rel="stylesheet" href="/stylesheets/application.css">
+    <link rel="stylesheet" href="/stylesheets/dashboard.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .createrTopTen > tr > td > span {
+            margin-left: 30px
+        }
+    </style>
+</head>
+<body>
+<!--页面顶部导航栏-->
+
+//组长界面
+
+<% include index_leader/topNav.ejs %>
+
+<% if('chartsPage' == whichPage){ %><!--显示统计图表-->
+<% include index_leader/dataChartsShow.ejs %>
+<% } %>
+
+<% if('userCtrlPage' == whichPage){ %><!--给每个步骤授权不同用户-->
+<% include index_leader/userCtrl.ejs %>
+<% } %>
+</body>
+<script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
+<script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+
+<!-- 首页流程展示效果需要引入的JS -->
+<script src="/javascripts/bootstrap-tooltip.js"></script>
+<script src="/javascripts/bootstrap-popover.js"></script>
+<script src="/javascripts/index.js"></script>
+
+<% if(projects && fileListCount && taskCount && createrTaskCount) { %>
+<script>
+    var ejsData;
+    <!--获取后台参数-->
+    $(function () {
+        ejsData = {
+            projects: <%- JSON.stringify(projects) %>,
+            fileListCount: <%- JSON.stringify(fileListCount) %>,
+            taskCount: <%- JSON.stringify(taskCount) %>,
+            createrTaskCount:<%- JSON.stringify(createrTaskCount) %>
+        };
+    });
+</script>
+<% } %>
+<% if('chartsPage' == whichPage){ %><!--显示统计图表-->
+<script src="/javascripts/charts-all.js"></script>
+<!--统计图表JS-->
+<script src="/javascripts/index_leader_chartsPage.js"></script>
+<!--页面对应的JS-->
+<% } %>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+    <link rel="stylesheet" href="/stylesheets/smartMenu.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript">
+    </script>
+</head>
+<body>
+<%- message %>                    <!--错误&成功提示信息条-->
+<% include topNav.ejs %>
+<!--页面顶部导航栏-->
+<% if(user){ %>
+<!--<% if(topBtnCheckTask == "btnScriptToDeal"){ %>-->
+<!--<% include script/script.ejs %>-->
+<!--<% }else{ %>-->
+<% include taskDeal.ejs %>
+<% } %><!--登录后的任务处理界面-->
+<% }else{ %>
+<% include processShow.ejs %>
+<!--首页展示-->
+<% } %>
+<% include modalWindow.ejs %>
+<!--模态窗口-->
+</body>
+<% include includeJs.ejs %>
+<!--引入的JS文件-->
+</html>

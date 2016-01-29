@@ -1,0 +1,93 @@
+<!--注册界面-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+<%- message %>
+<div class="span8 text-center">
+    <form action="/users/doReg" id="formReg" class=" bs-component form-horizontal" method='post'>
+        <div class="modal-header">
+            <h4 class="modal-title" id="myLargeModalLabel">用户注册</h4>
+        </div>
+
+        <div class="modal-body">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <!--<label for="inputTaskName" class="col-sm-4 control-label">用户名</label>-->
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-6 input-group"><!--class="col-sm-5"-->
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                                <input type="text" class="form-control" name="username" id="username"
+                                       placeholder="请输入用户名（用公司邮箱前缀）" autofocus/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <!--<label for="password" class="col-sm-4 control-label">密码</label>-->
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-6 input-group"><!--class="col-sm-5"-->
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                                <input type="password" class="form-control" name="password" id="password"
+                                       placeholder="请输入密码"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <!--<label for="password-repeat" class="col-sm-4 control-label">确认密码</label>-->
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-6 input-group"><!--class="col-sm-5"-->
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                                <input type="password" class="form-control" name="password-repeat" id="password-repeat"
+                                       placeholder="请再次输入密码"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="margin-top: 20px;"></div>
+
+                        <div class="form-group">
+                            <label for="inputRealName" class="col-sm-3 control-label"></label>
+
+                            <div class="col-sm-6 input-group">
+                                <span class="input-group-addon"><span
+                                            class="glyphicon glyphicon-credit-card"></span></span>
+                                <input type="text" class="form-control" name="realName" id="realName"
+                                       placeholder="请输入真实姓名">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password" class="col-sm-3 control-label"></label>
+
+                            <div class="col-sm-6 input-group">
+                                <span class="input-group-addon"><span
+                                            class="glyphicon glyphicon-envelope"></span></span>
+                                <input type="text" class="form-control" name="email" id="email" placeholder="请输入邮箱地址">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-actions">
+            <a href="/">
+                <button type="button" class="btn btn-default">返回</button>
+            </a>&emsp;
+            <button type="submit" class="btn btn-primary">注册</button>
+        </div>
+    </form>
+</div>
+
+<script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
+<script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+
+</body>
+</html>

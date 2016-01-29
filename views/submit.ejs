@@ -1,0 +1,133 @@
+<!--变更单处理--“上库”模态窗口-->
+<link rel="stylesheet" href="/stylesheets/jquery.fileupload.css"/>
+<form action="" id="formExtractFile" class=" bs-component form-horizontal" method='post'>
+    <input type="hidden" id="taskId" name="taskId" value="<%= task.taskid %>"/>
+    <input type="hidden" id="processStepId" name="processStepId" value="<%= task.processStepId %>"/>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span>
+        </button>
+        <h4 class="modal-title" id="myLargeModalLabel">上库</h4>
+    </div>
+    <div class="modal-body">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+
+                    <div class="form-group">
+                        <label for="taskCode" class="col-sm-2 control-label">变更单号</label>
+
+                        <div class="col-sm-10" style="margin-top:6px">
+                            <span id="taskCode" name="taskCode" id="taskCode"><%= task.taskcode %></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputTaskName" class="col-sm-2 control-label">变更单名</label>
+
+                        <div class="col-sm-10" style="margin-top:6px">
+                            <span id="taskName"><%= task.taskname %></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputProjectUri" class="col-sm-2 control-label">项目SVN路径</label>
+
+                        <div class="col-sm-10" style="margin-top:6px">
+                            <span id="projectUri"><%= task.projectUri %></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputTaskDesc" class="col-sm-2 control-label">申请人</label>
+
+                        <div class="col-sm-10" style="margin-top:6px">
+                            <span id="createrName"><%= task.createName %></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="modifyTaskList" class="col-sm-2 control-label">修改文件清单</label>
+
+                        <div class="col-sm-10" style="margin-top:6px">
+                            <textarea class="form-control" id="modifyTaskList" rows="3"
+                                      disabled="disabled"><%= modifyFileList == undefined ? '' : modifyFileList %></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="addTaskList" class="col-sm-2 control-label">新增文件清单</label>
+
+                        <div class="col-sm-10" style="margin-top:6px">
+                            <textarea class="form-control" id="addTaskList" rows="3"
+                                      disabled="disabled"><%= addFileList == undefined ? '' : addFileList %></textarea>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="delTaskList" class="col-sm-2 control-label">删除文件清单</label>
+
+                        <div class="col-sm-10" style="margin-top:6px">
+                            <textarea class="form-control" id="delTaskList" rows="3"
+                                      disabled="disabled"><%= delFileList == undefined ? '' : delFileList %></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputTaskList" class="col-sm-2 control-label">旧文件</label>
+
+                        <div class="col-sm-10" style="margin-top:6px">
+                            <span><a id="a_oldFile" href="old/<%= task.taskcode %>/old.zip">old.zip</a></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputTaskList" class="col-sm-2 control-label">已上传的变更单</label>
+
+                        <div class="col-sm-10" style="margin-top:6px">
+                            <span><a id="a_attaFile" href="<%= attaFile.fileUri %>"><%= attaFile.fileName %></a></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputTaskList" class="col-sm-2 control-label">走查报告</label>
+
+                        <div class="col-sm-10" style="margin-top:6px">
+                            <span><a id="a_reportAtta"
+                                     href="<%= reportAtta.fileUri %>"><%= reportAtta.fileName %></a></span>
+                        </div>
+                    </div>
+                    <div class="form-group" id="updateRevDiv">
+                        <label for="inputTaskList" class="col-sm-2 control-label">版本号</label>
+
+                        <div class="col-sm-2" style="margin-top:6px" typeId="revisionAdmin" taskId= <%= task.taskid %>>
+                            <input id="revision" class="form-control" value="" placeholder="未提交"/>
+                        </div>
+                        <div class="col-sm-2" style="margin-top:6px">
+                            <button type="button" class="btn btn-primary" id="btnUpdateRev" taskId= <%= task.taskid %>>
+                                提交版本号
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div style="width:64%;float:left;margin-bottom:-20px;margin-top:-9px;height:50px;" id="diaErrTip"
+             class="alert alert-danger alert-dismissible" role="alert"><span
+                    style="text-align:center;margin-left:auto;margin-right:auto;display:block;"><strong>错误提示</strong></span>
+        </div>
+        <div style="width:64%;float:left;margin-bottom:-20px;margin-top:-9px;height:50px;" id="diaSuccessTip"
+             class="alert alert-success alert-dismissible" role="alert"><span
+                    style="text-align:center;margin-left:auto;margin-right:auto;display:block;"><strong>操作成功</strong></span>
+        </div>
+        <div style="width:35%;float:right;">
+            <button id="btnCloseModel" type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <input type="hidden" id="taskState" value="<%= task.state %>"/>
+            <button id="btnSubmitAccept" type="button" class="btn btn-primary">接受任务</button>
+            <button id="btnAutoSubmit" type="button" class="btn btn-primary">自动上测试库</button>
+            <button id="btnAutoUpateSubmit" type="button" class="btn btn-primary">更新svn信息并上库</button>
+            <button id="btnSubmitComplete" type="button" class="btn btn-primary">上测试库完成</button>
+        </div>
+    </div>
+</form>
+
+<script src="/javascripts/bootstrap-suggest.js"></script>
+<script src="/javascripts/common.js"></script>
+<script src="/javascripts/submit.js"></script>

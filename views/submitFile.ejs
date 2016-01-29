@@ -1,0 +1,215 @@
+<!--变更单处理--“走查”模态窗口-->
+<link rel="stylesheet" href="/stylesheets/jquery.fileupload.css"/>
+<!--<form action="" id="formExtractFile" class=" bs-component form-horizontal" method='post'>-->
+<form target="ifm_fileUpRe" id="submitFileForm" action="/file/submitFile" class="bs-component form-horizontal"
+      role="form" method="post" enctype='multipart/form-data'>
+    <input type="hidden" id="taskId" name="taskId" value="<%= task.taskid %>"/>
+    <input type="hidden" id="taskProject" name="taskProject" value="<%= task.projectId %>"/>
+    <input type="hidden" id="processStepId" name="processStepId" value="<%= task.processStepId %>"/>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span>
+        </button>
+        <% if(unPassReason){ %>
+        <h4 class="modal-title" id="myLargeModalLabel">提交变更单--走查不通过</h4>
+        <% }else{ %>
+        <h4 class="modal-title" id="myLargeModalLabel">提交变更单</h4>
+        <% } %>
+    </div>
+    <div class="modal-body">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+
+                    <div class="form-group">
+                        <label for="taskCode" class="col-sm-2 control-label">变更单号</label>
+
+                        <div class="col-sm-8" style="margin-top:6px">
+                            <span id="taskCode"><%= task.taskcode %></span>
+                        </div>
+                        <div class="col-sm-2" style="margin-top:6px">
+                            <button id="btnSFDelete" type="button" class=" btn btn-danger" style="float:right">放弃变更单
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputTaskName" class="col-sm-2 control-label">变更单名</label>
+
+                        <div class="col-sm-4" style="margin-top:6px">
+                            <span id="taskName"><%= task.taskname %></span>
+                        </div>
+                        <label for="inputTaskList" class="col-sm-2 control-label">已提取的旧文件</label>
+
+                        <div class="col-sm-4" style="margin-top:6px">
+                            <span><a id="a_oldFile" href="old/<%= task.taskcode %>/old.zip">old.zip</a></span>
+                            <!--<span><a id="a_attaFile" href="<%= oldAtta == undefined ? '' : oldAtta.fileUri %>"><%= oldAtta == undefined ? '' : oldAtta.fileName %></a></span>-->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">是否是需求</label>
+
+                        <div class="col-sm-10">
+                            <% if(task.typeId == 1){ %>
+                            是
+                            <% }else if(task.typeId == 0){ %>
+                            否
+                            <% } %>
+                            <input type="radio" name="taskType" id="taskType" value="<%= task.typeId %>" checked
+                                   disabled/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputTaskDesc" class="col-sm-2 control-label">变更单描述</label>
+
+                        <div class="col-sm-4" style="margin-top:6px">
+                            <span id="createrName"><%= task.taskDesc %></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="modifyTaskList" class="col-sm-2 control-label">修改文件清单</label>
+
+                        <div class="col-sm-10" style="margin-top:6px">
+                            <textarea class="form-control" id="modifyTaskList" name="modifyTaskList" rows="3"
+                                      disabled="disabled"><%= modifyFileList == undefined ? '' : modifyFileList %></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="addTaskList" class="col-sm-2 control-label">新增文件清单</label>
+
+                        <div class="col-sm-10" style="margin-top:6px">
+                            <textarea class="form-control" id="addTaskList" rows="3"
+                                      disabled="disabled"><%= addFileList == undefined ? '' : addFileList %></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="delTaskList" class="col-sm-2 control-label">删除文件清单</label>
+
+                        <div class="col-sm-10" style="margin-top:6px">
+                            <textarea class="form-control" id="delTaskList" rows="3"
+                                      disabled="disabled"><%= delFileList == undefined ? '' : delFileList %></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputTaskList" class="col-sm-2 control-label">上传变更单</label>
+
+                        <div class="col-sm-3" style="margin-top:8px">
+                            <span><a id="a_reportAtta" href=""></a></span>
+                        </div>
+                        <div id="btnSelectReport" class="col-sm-1" style="width: 90px;margin-left: -56px;">
+                            <span class="btn btn-success fileinput-button">
+                                <i id="uploadIcon" class="glyphicon glyphicon-plus"></i>
+                                <span>选择文件</span>
+                                <input id="fulAvatar" name="fulAvatar" type="file" class="form-control"/>
+                            </span>
+                        </div>
+                        <div id="btnSelectReport" class="col-sm-5" style="margin-left: 20px;">
+                            <span>（请将“新文件”,“基线变更单”,“测试报告”,“数据变更单”打成一个rar或zip压缩包上传）</span>
+                        </div>
+
+                    </div>
+                    <div class="form-group" id='divContainScript'>
+                        <label class="col-sm-2 control-label">是否是包含配置或脚本</label>
+
+                        <div class="col-sm-3">
+                            是 <input type="radio" name="containScript" id="containScript" value="1">
+                            否 <input type="radio" name="containScript" id="containScript" value="0"/>
+                        </div>
+                        <div class="col-sm-6" id="proviceDiv" hidden>
+                            <label class="col-sm-2 control-label">所属省份</label>
+
+                            <div class="col-sm-5">
+                                <select class="form-control" name="proviceId" id="proviceId">
+                                    <option value="" selected>--请选择--</option>
+                                    <option value="1">XJ</option>
+                                    <option value="2">SC</option>
+                                    <option value="3">YN</option>
+                                    <option value="100">多个省份</option>
+                                    <option value="99">非NCRM</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" id="scriptCommentDiv" hidden>
+                        <label for="req" class="col-sm-2 control-label">脚本执行说明</label>
+
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="scriptComment" val="" maxlength="150"
+                                   placeholder="请简要注明:脚本执行省份及其他关键说明">
+                        </div>
+                    </div>
+                    <% if(unPassReason){ %>
+                    <div id="unPassDiv">
+                        <div style="border: 1px solid #bbbbbb"></div>
+                        <div class="form-group">
+                            <label for="delTaskList" class="col-sm-2 control-label">走查人员</label>
+
+                            <div class="col-sm-10" style="margin-top:6px">
+                                <%= unPassReason.realName %>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="delTaskList" class="col-sm-2 control-label">原上传变更单</label>
+
+                            <div class="col-sm-10" style="margin-top:6px">
+                                <span><a id="a_attaFile_unPass"
+                                         href="<%= beforeAtta.fileUri %>"><%= beforeAtta.fileName %></a></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="delTaskList" class="col-sm-2 control-label">走查报告</label>
+
+                            <div class="col-sm-10" style="margin-top:6px">
+                                <span><a id="a_attaReport_unPass"
+                                         href="<%= unPassReport.fileUri %>"><%= unPassReport.fileName %></a></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="delTaskList" class="col-sm-2 control-label">不通过原因</label>
+
+                            <div class="col-sm-10" style="margin-top:6px">
+                                <textarea class="form-control" id="noPassReason" rows="3"
+                                          disabled="disabled"><%= unPassReason.noPassReason == undefined ? '' : unPassReason.noPassReason %></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <% } %>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    </div>
+    <div class="modal-footer">
+        <div style="width:68%;float:left;margin-bottom:-20px;margin-top:-9px;height:50px;" id="diaInfoTip"
+             class="alert alert-info alert-dismissible" role="alert"><span
+                    style="text-align:center;margin-left:auto;margin-right:auto;display:block;"><strong>信息提示</strong></span>
+        </div>
+        <div style="width:68%;float:left;margin-bottom:-20px;margin-top:-9px;height:50px;" id="diaErrTip"
+             class="alert alert-danger alert-dismissible" role="alert"><span
+                    style="text-align:center;margin-left:auto;margin-right:auto;display:block;"><strong>错误提示</strong></span>
+        </div>
+        <div style="width:68%;float:left;margin-bottom:-20px;margin-top:-9px;height:50px;" id="diaSuccessTip"
+             class="alert alert-success alert-dismissible" role="alert"><span
+                    style="text-align:center;margin-left:auto;margin-right:auto;display:block;"><strong>操作成功</strong></span>
+        </div>
+        <div style="width:30%;float:right;margin-right: 12px">
+            <button id="btnCloseModel" type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <button id="btnSubmitFile" type="button" class="btn btn-primary">上传变更单</button>
+        </div>
+    </div>
+</form>
+
+<iframe id='ifm_fileUpRe' name='ifm_fileUpRe' style="display:none"/>
+<script src="/javascripts/common.js"></script>
+<script src="/javascripts/submitFile.js"></script>
+<script>
+    //赋予走查不通过相关附件的下载功能
+    resetAttaDownloadUri('a_attaFile_unPass');
+    resetAttaDownloadUri('a_attaReport_unPass');
+</script>
+<script src="/javascripts/deltask.js"></script>

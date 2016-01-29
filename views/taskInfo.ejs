@@ -1,0 +1,78 @@
+<!--变更单处理--“当前用户发起的变更单”模态窗口-->
+<form action="" id="formTaskInfo" class=" bs-component form-horizontal" method='post'>
+    <input type="hidden" id="taskInfoId" value="<%= task.taskid %>"/>
+    <input type="hidden" id="processStepId" name="processStepId" value="<%= task.processStepId %>"/>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span>
+        </button>
+        <h4 class="modal-title" id="myLargeModalLabel">我发起的变更单</h4>
+    </div>
+    <div class="modal-body">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+
+                    <div class="form-group">
+                        <label for="taskName" class="col-sm-2 control-label">变更单号</label>
+
+                        <div class="col-sm-10" style="margin-top:6px">
+                            <span id="taskCode"><%= task.taskcode %></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputTaskName" class="col-sm-2 control-label">变更单名</label>
+
+                        <div class="col-sm-10" style="margin-top:6px">
+                            <span id="taskName"><%= task.taskname %></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputTaskDesc" class="col-sm-2 control-label">申请人</label>
+
+                        <div class="col-sm-4" style="margin-top:6px">
+                            <span id="createrName"><%= task.createName %></span>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="addTaskList" class="col-sm-2 control-label">新增文件清单</label>
+
+                        <div class="col-sm-10" style="margin-top:6px">
+                            <textarea class="form-control" id="addTaskList" rows="3"
+                                      disabled="disabled"><%= addFileList == undefined ? '' : addFileList %></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="modifyTaskList" class="col-sm-2 control-label">修改文件清单</label>
+
+                        <div class="col-sm-10" style="margin-top:6px">
+                            <textarea class="form-control" id="modifyTaskList" rows="3"
+                                      disabled="disabled"><%= modifyFileList == undefined ? '' : modifyFileList %></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="delTaskList" class="col-sm-2 control-label">删除文件清单</label>
+
+                        <div class="col-sm-10" style="margin-top:6px">
+                            <textarea class="form-control" id="delTaskList" rows="3"
+                                      disabled="disabled"><%= delFileList == undefined ? '' : delFileList %></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div style="width:20%;float:right;">
+            <button id="btnTIDeleteTask" type="button" class="btn btn-danger" data-dismiss="modal">放弃变更单</button>
+            <button id="btnCloseModel" type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        </div>
+    </div>
+</form>
+<script src="/javascripts/bootstrap-suggest.js"></script>
+<script src="/javascripts/common.js"></script>
+<script src="/javascripts/planCheck.js"></script>
+<script src="/javascripts/deltask.js"></script>

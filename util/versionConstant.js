@@ -3,16 +3,21 @@
  */
 var versionConstant = {
     svnLocation: {
+        //变更单提交路径
         CHANGATTARepository: 1,//svnlocaction id = 1
+        //测试库svn路径
         TESTRepository: "http://192.168.1.22:8000/svn/hxbss/NCRM/baseLine/Source/trunk",
+        //发布库svn路径
         DevRepository: "http://192.168.1.22:8001/svn/hxbss/NCRM_BASELINE/Source"
     },
     paths: {
         exportAttachmentsLocalPath: "./exportAttachmentsLocalPath/", //需要导出特定变跟单附件压缩包的路径
+        //发布库本机路径备份
         DevRepositoryPath: "C:/app/NCRM_Baseline/NCRM_BASELINE/Source/trunk/",
         attachmentLocalPath: "./",//所有变更单存放的父级路径,
         renameFiles: "./attachment/newAndOld/rename.bat" //存放重命名文件
     },
+    //版本管理流程的状态
     states: {
         APPLYCOMPLETE: "申请完成",
         FILESEXTRACTED: "旧文件已提取",
@@ -35,6 +40,7 @@ var versionConstant = {
         SUBMITTODEVFAIL: "上发布库失败",
         SUBMITTODEVCOMPLETE: "上发布库完成"
     },
+    //版本管理系统流程
     processStep: {
         APPLY: 1,
         EXTRACTFILE: 2,

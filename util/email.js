@@ -24,6 +24,7 @@ var mailOptions = {
 
 exports.sendMailToCreater = function (taskcode, taskname, creater, content, userEmail) {
     mailOptions.attachments = "";
+    mailOptions.cc = "";
     var sendContent = '<b>开发人员_' + creater + '：<br/>' +
         '&emsp;&emsp;您好！您申请的变更单【变更单名称】:“' + taskname + '”   (变更单号：' + taskcode + ')有以下文件被占用。' +
         '现在占用已解除，可以提取。请及时提取并上传变更单。<br/><br/></b>' +
@@ -43,6 +44,7 @@ exports.sendMailToDealer = function (taskcode, taskname, creater, processStepId,
     var taskType;
     var sendContent;
     mailOptions.attachments = "";
+    mailOptions.cc = "";
     if (processStepId == 10) {//走查不通过，通知开发人员
         sendContent = '<b>亲爱的' + creater + '：<br/>' +
         '&emsp;&emsp;变更单：【变更单名称】:“' + taskname + '”   (变更单号：' + taskcode + ')' +
@@ -102,6 +104,7 @@ exports.sendMailToCreaterTest = function (taskcode, taskname, userName, userEmai
     mailOptions.to = userEmail;
     mailOptions.subject = '【版本管理系统】变更单' + content;
     mailOptions.attachments = "";
+    mailOptions.cc = "";
     transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
             console.log(error);
@@ -119,6 +122,7 @@ exports.sendMailToCreaterSubmit = function (taskcode, taskname, userName, userEm
     mailOptions.to = userEmail;
     mailOptions.subject = '【版本管理系统】变更单' + content;
     mailOptions.attachments = "";
+    mailOptions.cc = "";
     transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
             console.log(error);
@@ -135,6 +139,7 @@ exports.sendSqlAttaToPM = function (taskcode, taskname, userName, userEmail, con
         '<div><b>' + content + '</b><br/></div>';
     mailOptions.html = sendContent + alink;
     mailOptions.to = userEmail;
+    mailOptions.cc = "";
     mailOptions.subject = '【版本管理系统】' + content;
     var files = [];
     attachment.forEach(function (file) {

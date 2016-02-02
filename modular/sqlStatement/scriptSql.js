@@ -29,9 +29,13 @@ scriptSql.findScripts = "SELECT *  from (" +
 var findScript_params = "[]";
 
 scriptSql.countScripts = "SELECT count(*) count from (" +
-"   SELECT s.*,t.taskName,u.realName createrName,p.proviceName ,t.containScript ,st.stateName from" +
-"    tasks t,scripts s,provice p,user u,states st" +
-"   where t.taskId = s.taskId and s.proviceId = p.proviceId and u.userId = t.creater and s.execState = st.stateId" +
+"   SELECT s.*,t.taskName,u.realName createrName,p.proviceName ,t.containScript ,st.stateName" +
+"   from tasks t" +
+"   join scripts s on  t.taskId = s.taskId" +
+"   join user u on u.userId = t.creater" +
+"   join states st on s.execState = st.stateId" +
+"   left join provice p" +
+"   on   p.proviceId = s.proviceId  " +
 "   )scriptsTable "
 var countScripts_params = "[]";
 //scriptSql.findScriptsById = "   SELECT s.*,t.taskName,u.realName createrName,p.proviceName ,t.containScript ,st.stateName " +

@@ -24,7 +24,7 @@
                            dealerName="<%= script.dealerName %>" scriptType="taskProcessStepId>"
                            scriptId="<%= script.scriptId %>"
                            taskcreater="<%= script.creater %>"><%= script.taskName %></a></td>
-                    <td><%= script.proviceName %></td>
+                    <td><%= script.proviceName ? script.proviceName : "" %></td>
                     <% if(script.containScript){ %>
                     <td>是</td>
                     <% }else{ %>

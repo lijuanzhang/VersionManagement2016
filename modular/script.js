@@ -182,19 +182,18 @@ script.findScripts = function (params, callback) {
         var countsql = scriptSql.countScripts;
         var conditionsql = getConditionAndSql(params);
         var newParams = conditionsql.params;
-        conditionsql = conditionsql.sql;
-        trans.query(sql + " " + conditionsql, newParams, function (err, result) {
+        var condSql = conditionsql.sql;
+        trans.query(sql + " " + condSql, newParams, function (err, result) {
             if (err) {
                 console.log('[ addScript ERROR] - ', err.message);
                 return callback(err, null);
             }
-            trans.query(countsql + " " + conditionsql, newParams, function (err, count) {
+            trans.query(countsql + " " + conditionsql.countSql, conditionsql.countParams, function (err, count) {
                 if (err) {
                     console.log('[ addScript ERROR] - ', err.message);
                     return callback(err, null);
                 }
                 else {
-
                     callback('success', result, count[0].count);
                 }
             });
@@ -267,7 +266,9 @@ script.findScriptAttachInfo = function (params, callback) {
 //根据传入的参数生成查找配置或者脚本 的sql 条件
 function getConditionAndSql(params) {
     var newParams = [];
+    var countParams;
     var sql = [];
+    var countSql;
     if (params.proviceId != '') {
         sql.push("  proviceId = ? ");
         newParams.push(params.proviceId);
@@ -280,22 +281,26 @@ function getConditionAndSql(params) {
         sql.push("   createTime < ? ");
         newParams.push(params.endTime);
     }
-    if (params.reqName != '') {
-        sql.push("  reqName like ? ");
-        newParams.push('%' + params.reqName + '%');
+
+    if (params.taskName != '') {
+        sql.push("  taskName like ? ");
+        newParams.push('%' + params.taskName + '%');
     }
     if (params.containScript == 1) {
         sql.push("  containScript = ? ");
         newParams.push(params.containScript);
     }
+    countParams = newParams;
     if (!sql.length) {
+        countSql = "";
         sql = " order by createTime desc limit ?,30";
         newParams.push((params.curPage - 1) * 30);
     }
     else {
+        countSql = " where " + sql.join(" and ");
         sql = " where " + sql.join(" and ") + "order by createTime desc limit ?,30";
         newParams.push((params.curPage - 1) * 30);
     }
-    return {sql: sql, params: newParams}
+    return {sql: sql, params: newParams, countSql: countSql, countParams: countParams}
 }
 module.exports = script;

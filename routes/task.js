@@ -887,6 +887,9 @@ router.post('/submitComplete', function (req, res) {
             //判断其他变更单的文件占用情况并发邮件
             //暂时关闭
             sendEmailToNext(req, taskId, '', 7);
+            var EmailSever = require("./service/email");
+            EmailSever.sendSqlAttachmentToDBs({taskId: taskId, userId: userId}, function (msg) {
+            });
             findUnUsedTaskAndFileUri(taskId, req, function (fileLists) {
                 var conflictTaskId = [];//存放受到影响的taskId
                 var conflictTaskFileUri = '';//受到影响的文件路径
@@ -957,7 +960,7 @@ router.get('/findAllTaskPage', function (req, res) {
         return;
     }
     var userId = cookiesUser.userId;
-    User.findUserProjectForFindAllTask(userId, function (msg, projects) {
+    User.findUserProject(userId, function (msg, projects) {
         if ('success' != msg) {
             req.session.error = "查找用户能操作的项目时发生错误,请记录并联系管理员";
             return null;

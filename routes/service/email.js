@@ -34,7 +34,7 @@ email.sendSqlAttachmentToDBs = function (params, callback) {
         if (msg == "err") {
             return console.log("sendSqlAttachmentToDBs ERROR：", params.taskId, "  ", result);
         }
-        if (!result.length) {
+        if (!result || !result.length) {
             return console.log("sendEmailWithAtta:there is no scripts");
         }
         //测试
